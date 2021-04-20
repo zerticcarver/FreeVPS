@@ -21,8 +21,10 @@ jobs:
     - name: Connect Ke VPS Kamu CPU 2 Core - 7GB Ram - 255 SSD.
       run: | 
         echo Berhasil Menginstall!, Jika VPSnya Mati Silahkan Rebuild Lagi!
-        echo Ip Dan Port:
-        curl -s localhost:4040/api/tunnels | jq -r .tunnels[0].public_url || echo "Tidak bisa mendapatkan NGROK tunnel, pastikan NGROK_AUTH_TOKEN benar di Settings> Secrets> Repository secret. Mungkin VM Anda sebelumnya masih berjalan: https://dashboard.ngrok.com/status/tunnels "
+        echo Ip:
+        curl -s localhost:4040/api/tunnels | jq -r .tunnels[0].public_url | cut -d / -f3 | cut -d : -f1 || echo "Tidak bisa mendapatkan Ip, pastikan NGROK_AUTH_TOKEN benar di Settings> Secrets> Repository secret. Mungkin VM Anda sebelumnya masih berjalan: https://dashboard.ngrok.com/status/tunnels "
+        echo Port:
+        curl -s localhost:4040/api/tunnels | jq -r .tunnels[0].public_url | cut -d / -f3 | cut -d : -f2 || echo "Tidak bisa mendapatkan Port, pastikan NGROK_AUTH_TOKEN benar di Settings> Secrets> Repository secret. Mungkin VM Anda sebelumnya masih berjalan: https://dashboard.ngrok.com/status/tunnels "
         echo Username: NaufalCream
         echo Password: @NaufalCream12
         echo Silahkan Login Ke VPS Anda!!
