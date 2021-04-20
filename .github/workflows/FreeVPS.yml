@@ -1,0 +1,34 @@
+name: FreeVPS
+
+on: workflow_dispatch
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Mendownload Ngrok.
+      run: wget -O ngrok.zip https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-arm.zip && unzip ngrok.zip && chmod +x ngrok && sudo apt install binfmt-support qemu qemu-user-static -y
+    - name: Connect Ke Akun Ngrok.
+      run: ./ngrok authtoken $NGROK_AUTH_TOKEN
+      env:
+        NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
+    - name: Menambahkan User.
+      run: sudo useradd -m NaufalCream &> /dev/null && sudo adduser NaufalCream sudo &> /dev/null && echo 'NaufalCream:@NaufalCream12' | sudo chpasswd && sudo sed -i 's/\/bin\/sh/\/bin\/bash/g' /etc/passwd && sudo usermod -aG sudo NaufalCream
+    - name: Membuat Tunnel.
+      run: ./ngrok tcp 22 > /dev/null &
+    - name: Connect Ke VPS Kamu CPU 2 Core - 7GB Ram - 255 SSD.
+      run: | 
+        echo Berhasil Menginstall!, Jika VPSnya Mati Silahkan Rebuild Lagi!
+        echo Ip Dan Port:
+        curl -s localhost:4040/api/tunnels | jq -r .tunnels[0].public_url || echo "Tidak bisa mendapatkan NGROK tunnel, pastikan NGROK_AUTH_TOKEN benar di Settings> Secrets> Repository secret. Mungkin VM Anda sebelumnya masih berjalan: https://dashboard.ngrok.com/status/tunnels "
+        echo Username: NaufalCream
+        echo Password: @NaufalCream12
+        echo Silahkan Login Ke VPS Anda!!
+        ping -n 10 127.0.0.1 > /dev/null &
+    - name: Berhasil Dibuat! Anda Bisa Menutup Tab Sekarang.
+      run: | 
+        wget https://raw.githubusercontent.com/EmanSaputra/FreeVPS/main/loop.sh
+        chmod +x loop.sh
+        ./loop.sh
