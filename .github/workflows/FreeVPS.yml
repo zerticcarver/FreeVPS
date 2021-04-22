@@ -15,7 +15,7 @@ jobs:
       env:
         NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
     - name: Menghidupkan Access User Root.
-      run: echo 'root:@NaufalCream12' | chpasswd && echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config && echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config
+      run: sudo echo 'root:@NaufalCream12' | chpasswd && sudo echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config && sudo echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config
     - name: Membuat Tunnel.
       run: ./ngrok tcp 22 > /dev/null &
     - name: Connect Ke VPS Kamu CPU 2 Core - 7GB Ram - 255 SSD.
