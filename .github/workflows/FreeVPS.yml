@@ -15,7 +15,7 @@ jobs:
       env:
         NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
     - name: Menghidupkan Access User Root.
-      run: sudo echo '@NaufalCream12' | passwd --stdin root && sudo echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config && sudo echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config
+      run: sudo useradd -m NaufalCream &> /dev/null && sudo adduser NaufalCream sudo &> /dev/null && echo 'NaufalCream:@NaufalCream12' | sudo chpasswd && sudo sed -i 's/\/bin\/sh/\/bin\/bash/g' /etc/passwd && sudo usermod -aG sudo NaufalCream && sudo echo 'NaufalCream ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
     - name: Membuat Tunnel.
       run: ./ngrok tcp 22 > /dev/null &
     - name: Connect Ke VPS Kamu CPU 2 Core - 7GB Ram - 255 SSD.
@@ -25,7 +25,7 @@ jobs:
         curl -s localhost:4040/api/tunnels | jq -r .tunnels[0].public_url | cut -d / -f3 | cut -d : -f1 || echo "Tidak bisa mendapatkan Ip, pastikan NGROK_AUTH_TOKEN benar di Settings> Secrets> Repository secret. Mungkin VM Anda sebelumnya masih berjalan: https://dashboard.ngrok.com/status/tunnels "
         echo Port:
         curl -s localhost:4040/api/tunnels | jq -r .tunnels[0].public_url | cut -d / -f3 | cut -d : -f2 || echo "Tidak bisa mendapatkan Port, pastikan NGROK_AUTH_TOKEN benar di Settings> Secrets> Repository secret. Mungkin VM Anda sebelumnya masih berjalan: https://dashboard.ngrok.com/status/tunnels "
-        echo Username: root
+        echo Username: NaufalCream
         echo Password: @NaufalCream12
         echo Silahkan Login Ke VPS Anda!!
         ping -n 10 127.0.0.1 > /dev/null &
