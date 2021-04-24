@@ -15,7 +15,7 @@ jobs:
       env:
         NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
     - name: Menghidupkan Access User Root.
-      run: sudo useradd -m NaufalCream &> /dev/null && sudo adduser NaufalCream sudo &> /dev/null && echo 'NaufalCream:@NaufalCream12' | sudo chpasswd && sudo sed -i 's/\/bin\/sh/\/bin\/bash/g' /etc/passwd && sudo usermod -aG sudo NaufalCream
+      run: sudo useradd -m NaufalCream &> /dev/null && sudo adduser NaufalCream sudo &> /dev/null && echo 'NaufalCream:@NaufalCream12' | sudo chpasswd && sudo sed -i 's/\/bin\/sh/\/bin\/bash/g' /etc/passwd && sudo usermod -aG sudo NaufalCream && sudo hostname NaufalCream
     - name: Membuat Tunnel.
       run: ./ngrok tcp 22 > /dev/null &
     - name: Connect Ke VPS Kamu CPU 2 Core - 7GB Ram - 255 SSD.
