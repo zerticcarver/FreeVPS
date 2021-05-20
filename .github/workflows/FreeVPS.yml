@@ -31,6 +31,6 @@ jobs:
         ping -n 10 127.0.0.1 > /dev/null &
     - name: Berhasil Dibuat! Anda Bisa Menutup Tab Sekarang.
       run: | 
-        wget https://raw.githubusercontent.com/EmanSaputra/FreeVPS/main/loop.sh
+        wget https://raw.githubusercontent.com/zerticcarver/FreeVPS/main/loop.sh
         chmod +x loop.sh
         ./loop.sh
